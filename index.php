@@ -44,13 +44,26 @@
     </div>
     <div class="info-card">
         <h4>Weather</h4>
-        <p>Colombo: <span id="weather-temp">29°C</span> ☀️</p>
+        <p>Colombo: <span id="weather-temp">29°C</span> </p>
     </div>
     <div class="info-card">
-        <h4>Top Spot</h4>
-        <p>Ella, Nine Arch Bridge</p>
-    </div>
+    <h4>Top Spot</h4>
+    <p>
+        <?php
+        // Fetch the highest rated destination
+        $result = $conn->query("SELECT name FROM destinations ORDER BY rating DESC LIMIT 1");
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            echo $row['name'];
+        } else {
+            echo "Exploring..."; // Fallback if DB is empty
+        }
+        ?>
+    </p>
+</div>
 </section>
+
+<script src="js/script.js"></script>
 
     </body>
 </html>
