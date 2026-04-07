@@ -63,6 +63,43 @@
 </div>
 </section>
 
+<section class="destinations-section">
+    <div class="section-header">
+        <h2>Popular <span>Destinations</span></h2>
+        <p>Handpicked gems from all across the island.</p>
+    </div>
+
+    <div class="destinations-grid">
+        <?php
+        $query = "SELECT * FROM destinations ORDER BY id DESC";
+        $result = $conn->query($query);
+
+        if ($result->num_rows > 0) {
+            while($row = $result->fetch_assoc()) {
+                ?>
+                <div class="dest-card">
+                    <div class="dest-image">
+                        <img src="<?php echo $row['image_url']; ?>" alt="<?php echo $row['name']; ?>">
+                        <span class="region-badge"><?php echo $row['region']; ?></span>
+                    </div>
+                    <div class="dest-content">
+                        <h3><?php echo $row['name']; ?></h3>
+                        <p><?php echo substr($row['description'], 0, 80); ?>...</p>
+                        <div class="dest-footer">
+                            <span class="rating">⭐ <?php echo $row['rating']; ?></span>
+                            <a href="destination-details.php?id=<?php echo $row['id']; ?>" class="view-btn">Explore</a>
+                        </div>
+                    </div>
+                </div>
+                <?php
+            }
+        } else {
+            echo "<p>No destinations found.</p>";
+        }
+        ?>
+    </div>
+</section>
+
 <script src="js/script.js"></script>
 
     </body>
